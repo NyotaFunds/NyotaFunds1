@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NYOTA FUND KENYA</title>
   <style>
-    /* Existing styles can go here */
+    /* Prevent horizontal scroll and ensure responsiveness */
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+      font-family: Arial, sans-serif; /* Optional: for better font rendering */
+    }
 
     /* Style for the error message window */
     #errorMessage {
@@ -22,6 +28,43 @@
       text-align: center;
       border-radius: 5px;
       z-index: 1000;
+    }
+
+    /* Make images responsive */
+    .header-image img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Optional: Style for container and text for better appearance on small screens */
+    .container {
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .welcome-text {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
