@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Display Nyota Final Data</title>
+<style>
+  body {
+    font-family: 'Raleway', sans-serif;
+    background: #f0f0f0;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  pre {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin: auto;
+    overflow-x: auto;
+  }
+</style>
+</head>
+<body>
+
+<h1>Saved Nyota Final Data</h1>
+<pre id="displayData">Loading...</pre>
+
+<script>
+  // Retrieve data from local storage
+  const dataStr = localStorage.getItem('nyota_finalData');
+
+  // Get the pre element
+  const preEl = document.getElementById('displayData');
+
+  if (dataStr) {
+    try {
+      const dataObj = JSON.parse(dataStr);
+      // Pretty-print the JSON object
+      preEl.innerText = JSON.stringify(dataObj, null, 2);
+    } catch (e) {
+      preEl.innerText = 'Error parsing data.';
+    }
+  } else {
+    preEl.innerText = 'No data found in local storage under "nyota_finalData".';
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NYOTA FUND – Choose Your Amount</title>
+<!-- Google Fonts for a modern look -->
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  body {
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    background: linear-gradient(135deg, #4CAF50, #81C784);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
+  }
+
+  .container {
+    background: rgba(255, 255, 255, 0.95);
+    max-width: 1000px;
+    width: 95%;
+    border-radius: 20px;
+    padding: 30px 40px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    overflow: hidden;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.8em;
+    color: #00695c;
+    margin-bottom: 10px;
+  }
+
+  p {
+    text-align: center;
+    font-size: 1.2em;
+    color: #444;
+    margin-bottom: 20px;
+  }
+
+  /* Strategy and call to action */
+  .strategy {
+    background: #e0f2f1;
+    padding: 15px 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* Amount options grid */
+  .amount-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .amount-btn {
+    background-color: #009688;
+    color: #fff;
+    border: none;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .amount-btn:hover {
+    background-color: #00675b;
+    transform: translateY(-3px);
+  }
+  .amount-btn.selected {
+    background-color: #ff9800;
+    box-shadow: 0 8px 20px rgba(255,152,0,0.4);
+  }
+
+  /* Display selected amount & fee */
+  .selection-info {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    font-size: 1.3em;
+    font-weight: 600;
+  }
+
+  /* Continue button */
+  .continue-btn {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    font-size: 1.4em;
+    background-color: #00675b;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 20px;
+  }
+  .continue-btn:hover {
+    background-color: #004d40;
+    transform: translateY(-2px);
+  }
+  .continue-btn:disabled {
+    background-color: #b2dfdb;
+    cursor: not-allowed;
+  }
+
+  /* Comments section styling with auto scroll animation */
+  .comments-section {
+    margin-top: 40px;
+    max-height: 250px;
+    overflow: hidden; /* hide overflow for scrolling effect */
+    background: #f1f8e9;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+  }
+  .comments-section h3 {
+    margin-top: 0;
+    color: #388e3c;
+    text-align: center;
+  }
+  .comments-scroll {
+    display: flex;
+    flex-direction: column;
+    animation: scrollComments 60s linear infinite;
+  }
+  .comment {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .comment strong {
+    color: #00695c;
+  }
+  .comment span {
+    display: block;
+    font-size: 0.85em;
+    color: #555;
+  }
+
+  @keyframes scrollComments {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+  }
+
+  /* Responsive adjustments */
+  @media(max-width: 600px){
+    body {
+      padding: 10px;
+    }
+    .container {
+      padding: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1 id="greeting">Hello!</h1>
+  <p class="strategy">Supporting Kenyan Youths with Strategic Funding for 2025-2026. Select the amount you can afford to process quickly!</p>
+
+  <!-- Amount Buttons Grid -->
+  <div class="amount-grid" id="amountButtons">
+    <button class="amount-btn" data-amount="22000" data-fee="340">Ksh 22,000</button>
+    <button class="amount-btn" data-amount="30300" data-fee="390">Ksh 30,300</button>
+    <button class="amount-btn" data-amount="40800" data-fee="450">Ksh 40,800</button>
+    <button class="amount-btn" data-amount="50000" data-fee="510">Ksh 50,000</button>
+    <button class="amount-btn" data-amount="65300" data-fee="650">Ksh 65,300</button>
+    <button class="amount-btn" data-amount="75000" data-fee="790">Ksh 75,000</button>
+    <button class="amount-btn" data-amount="85000" data-fee="900">Ksh 85,000</button>
+    <button class="amount-btn" data-amount="110000" data-fee="1100">Ksh 110,000</button>
+    <button class="amount-btn" data-amount="150000" data-fee="1490">Ksh 150,000</button>
+  </div>
+
+  <!-- Selected amount & fee display -->
+  <div class="selection-info">
+    <div>Amount: <span id="displayAmount">---</span></div>
+    <div>Processing Fee: <span id="displayFee">---</span></div>
+  </div>
+
+  <!-- Continue button -->
+  <button class="continue-btn" id="continueBtn" disabled>Continue to Payment</button>
+
+  <!-- Comments Section with auto scroll -->
+  <div class="comments-section">
+    <h3>Live Comments & Testimonials</h3>
+    <div class="comments-scroll" id="commentsScroll"></div>
+  </div>
+</div>
+
+<script>
+  // Load user name
+  (function() {
+    const phone = localStorage.getItem("phone_number");
+    const users = JSON.parse(localStorage.getItem("nyota_finalData") || "[]");
+    if (!phone || !users.length) return;
+    const currentUser = users.find(u => u.phone === phone);
+    if (currentUser && currentUser.fullname) {
+      document.getElementById('greeting').innerText = `Nyota Funds Selection, ${localStorage.getItem("first_name")}`;
+    }
+  })();
+  // State variables
+  let selectedFund = null;
+  const buttons = document.querySelectorAll('.amount-btn');
+  const displayAmount = document.getElementById('displayAmount');
+  const displayFee = document.getElementById('displayFee');
+  const continueBtn = document.getElementById('continueBtn');
+
+  // Load previous selection
+  const savedFund = JSON.parse(localStorage.getItem('selectedFund') || 'null');
+  if (savedFund) {
+    selectedFund = savedFund;
+    const btn = document.querySelector(`button[data-amount="${savedFund.amount}"]`);
+    if (btn) {
+      btn.classList.add('selected');
+    }
+    updateDisplay();
+  }
+
+  // Button selection handler
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedFund = {
+        amount: btn.dataset.amount,
+        fee: btn.dataset.fee
+      };
+      localStorage.setItem('selectedFund', JSON.stringify(selectedFund));
+      updateDisplay();
+    });
+  });
+
+  function updateDisplay() {
+    if (selectedFund) {
+      document.getElementById('displayAmount').innerText = `Ksh ${selectedFund.amount}`;
+      document.getElementById('displayFee').innerText = `Ksh ${selectedFund.fee}`;
+      document.getElementById('continueBtn').disabled = false;
+    } else {
+      document.getElementById('displayAmount').innerText = '---';
+      document.getElementById('displayFee').innerText = '---';
+      document.getElementById('continueBtn').disabled = true;
+    }
+  }
+
+  document.getElementById('continueBtn').addEventListener('click', () => {
+    if (!selectedFund) return alert('Select an amount first.');
+
+    // Retrieve existing nyota_finalData from localStorage
+    let nyotaFinalData = JSON.parse(localStorage.getItem('nyota_finalData')) || {};
+
+    // Add the selected amount's fee as "amount"
+    nyotaFinalData.amount = selectedFund.fee;
+
+    // Save the updated data back to localStorage
+    localStorage.setItem('nyota_finalData', JSON.stringify(nyotaFinalData));
+
+    // Proceed to next page
+    window.location.href = 'payment1.html';
+  });
+
+  // Generate 50 comments with the provided names
+  const namePairs = [
+    { first: "John", last: "Mwangi" },
+    { first: "Esther", last: "Nafula" },
+    { first: "Stephen", last: "Mutua" },
+    { first: "Robert", last: "Njoroge" },
+    { first: "Beatrice", last: "Jelagat" },
+    { first: "Moses", last: "Owino" },
+    { first: "Charles", last: "Maina" },
+    { first: "Richard", last: "Kipruto" },
+    { first: "Joseph", last: "Kiprono" },
+    { first: "Irene", last: "Syombua" },
+    { first: "Mary", last: "Atieno" },
+    { first: "Daniel", last: "Ruto" },
+    { first: "Lucy", last: "Nyambura" },
+    { first: "Sharon", last: "Anyango" },
+    { first: "Maureen", last: "Chebet" },
+    { first: "Elizabeth", last: "Kerubo" },
+    { first: "David", last: "Kariuki" },
+    { first: "Evans", last: "Musyoka" },
+    { first: "Boniface", last: "Muli" },
+    { first: "Michael", last: "Wafula" },
+    { first: "Lydia", last: "Naliaka" },
+    { first: "Hillary", last: "Wambui" },
+    { first: "Grace", last: "Achieng" },
+    { first: "Andrew", last: "Kibet" },
+    { first: "Anthony", last: "Kimani" },
+    { first: "Mercy", last: "Wanjiku" },
+    { first: "Erick", last: "Wekesa" },
+    { first: "Caroline", last: "Gathoni" },
+    { first: "Gladys", last: "Cherotich" },
+    { first: "Francis", last: "Onyango" },
+    { first: "Faith", last: "Muthoni" },
+    { first: "James", last: "Omondi" },
+    { first: "Rose", last: "Wairimu" },
+    { first: "Denis", last: "Ochieng" },
+    { first: "Sarah", last: "Nanjala" },
+    { first: "Millicent", last: "Wangui" },
+    { first: "Peter", last: "Otieno" },
+    { first: "Jane", last: "Akinyi" },
+    { first: "Kevin", last: "Odhiambo" },
+    { first: "Joy", last: "Makena" },
+    { first: "Samuel", last: "Kamau" },
+    { first: "Zainab", last: "Fatuma" },
+    { first: "Purity", last: "Cherono" },
+    { first: "Catherine", last: "Nduku" },
+    { first: "Geoffrey", last: "Korir" },
+    { first: "Anne", last: "Mwende" },
+    { first: "Hellen", last: "Adhiambo" },
+    { first: "George", last: "Kiptoo" },
+    { first: "Hassan", last: "Juma" },
+    { first: "Paul", last: "Simiyu" }
+  ];
+
+  const messages = [
+    "Received 50k in minutes! Amazing platform!",
+    "Trustworthy and fast. Got my funds immediately.",
+    "Helped me start my business quickly. Thanks!",
+    "Received my money in less than 3 minutes!",
+    "Highly reliable platform for youth funding.",
+    "Fast, secure, and legit platform!",
+    "I got my funds and started my shop.",
+    "Best funding platform I've used!",
+    "Money arrived faster than expected.",
+    "Thanks NYOTA! You changed my life.",
+    "Supported my startup smoothly.",
+    "My funds came through immediately.",
+    "Trust and speed combined. Excellent!",
+    "Received 40k today, very happy!",
+    "Helped me pay rent quickly.",
+    "Amazing service, will recommend.",
+    "Funds came in less than 2 minutes!",
+    "Reliable and fast. Thumbs up!",
+    "My business startup is now active.",
+    "Received funds and doubled my investment!",
+    "Professional platform, highly recommended.",
+    "Funds arrived in record time!",
+    "Affordable and fast processing.",
+    "Thanks for supporting youth entrepreneurs!",
+    "Platform is legit, I received my funds.",
+    "My savings grew thanks to NYOTA.",
+    "Supportive and quick to deliver.",
+    "I trust NYOTA FUND for my needs.",
+    "Funds arrived in a flash!",
+    "Great platform for young Kenyans.",
+    "I invested and got my money quickly.",
+    "Legit platform, no scams here.",
+    "My dreams are coming true with NYOTA!",
+    "Thanks for empowering youths!",
+    "Received my funds and started my project.",
+    "Fast, safe, and reliable!",
+    "My business is thriving now.",
+    "Funds in less than 3 minutes — wow!",
+    "Trusted by many Kenyans.",
+    "Great support and quick payout.",
+    "Highly satisfied with the service.",
+    "Received my funds and paid school fees.",
+    "Platform you can trust!",
+    "Quick processing. Highly recommended.",
+    "Received support when I needed it.",
+    "My funds arrived instantly. Thanks!",
+    "Best funding experience ever.",
+    "Reliable, fast, and legit!"
+  ];
+
+  const commentsContainer = document.getElementById('commentsScroll');
+
+  for (let i=0; i<50; i++) {
+    const pair = namePairs[Math.floor(Math.random() * namePairs.length)];
+    const name = `${pair.first} ${pair.last}`;
+    const msg = messages[Math.floor(Math.random() * messages.length)];
+    const timeSecs = Math.floor(Math.random() * (3600 * 5)); // up to 5 hours
+    const timeStr = formatTimeAgo(timeSecs);
+    const commentDiv = document.createElement('div');
+    commentDiv.className = 'comment';
+    commentDiv.innerHTML = `<strong>${name}</strong>: ${msg}<br><span>commented ${timeStr}</span>`;
+    commentsContainer.appendChild(commentDiv);
+  }
+
+  function formatTimeAgo(seconds) {
+    if (seconds < 60) return `${seconds} seconds ago`;
+    else if (seconds < 3600) {
+      const mins = Math.floor(seconds/60);
+      return `${mins} minute${mins>1?'s':''} ago`;
+    } else {
+      const hrs = Math.floor(seconds/3600);
+      return `${hrs} hour${hrs>1?'s':''} ago`;
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Success Celebration</title>
+<style>
+  /* Reset and base styles */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial Black', sans-serif;
+    background: linear-gradient(135deg, #a8e063, #56ab2f);
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+  }
+
+  /* Main message styles with a semi-transparent background for contrast */
+  h1 {
+    font-size: 3em;
+    margin: 20px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+    text-shadow: 0 0 15px #fff, 0 0 30px #00ff7f, 0 0 60px #00ff7f;
+    animation: glow 1.5s infinite alternate;
+    color: #fff;
+  }
+
+  p {
+    font-size: 1.5em;
+    max-width: 800px;
+    margin: 20px;
+    padding: 15px 25px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+    line-height: 1.4;
+  }
+
+  /* Extra celebration message */
+  .extra {
+    font-size: 1.2em;
+    margin-top: 30px;
+    color: #fff;
+    text-shadow: 0 0 10px #fff, 0 0 20px #00ff7f;
+  }
+
+  /* Glowing animation for header text */
+  @keyframes glow {
+    from { text-shadow: 0 0 10px #fff, 0 0 20px #00ff7f, 0 0 30px #00ff7f; }
+    to { text-shadow: 0 0 20px #fff, 0 0 40px #00ff7f, 0 0 60px #00ff7f; }
+  }
+
+  /* Style for stars and confetti particles */
+  .star, .confetti {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.8;
+    box-shadow: 0 0 10px #fff, 0 0 20px #0f0, 0 0 30px #0f0;
+    animation: twinkle 2s infinite ease-in-out;
+  }
+
+  /* Twinkle animation for stars and confetti */
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.2; }
+  }
+
+  /* Confetti specific styles */
+  .confetti {
+    width: 4px;
+    height: 4px;
+    background-color: inherit;
+    opacity: 0.9;
+    animation: fall 4s linear forwards, twinkle 2s infinite ease-in-out;
+  }
+
+  /* Falling animation for confetti */
+  @keyframes fall {
+    from { transform: translateY(0); }
+    to { transform: translateY(100vh); }
+  }
+</style>
+</head>
+<body>
+
+<h1>Congratulations</h1>
+<p>You’re all set, all your payments have been confirmed.<br/>
+You’ll receive your award in a few minutes. Thanks for participating in our Nyota Funds Program!</p>
+<div class="extra">
+  Feel free to celebrate! 🎉✨🌟
+</div>
+
+<!-- Container for stars and confetti -->
+<div id="celebration"></div>
+
+<script>
+  const container = document.getElementById('celebration');
+
+  // Function to create realistic stars
+  function createStar() {
+    const star = document.createElement('div');
+    star.className = 'star';
+
+    // Random position
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+
+    // Random size for stars (larger for realism)
+    const size = Math.random() * 4 + 2; // 2px to 6px
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+
+    // Random color (white, yellow, light blue, pink)
+    const colors = ['#fff', '#ffff99', '#aaffff', '#ffccff'];
+    star.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    star.style.boxShadow = `0 0 ${10 + size}px ${colors[Math.floor(Math.random() * colors.length)]}`;
+
+    // Random animation delay and duration
+    star.style.animationDelay = Math.random() * 2 + 's';
+    star.style.animationDuration = (Math.random() * 2 + 1) + 's';
+
+    container.appendChild(star);
+
+    // Remove star after some time
+    setTimeout(() => { star.remove(); }, 4000 + Math.random() * 2000);
+  }
+
+  // Function to create colorful confetti
+  function createConfetti() {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+
+    // Random position
+    confetti.style.top = '0px';
+    confetti.style.left = Math.random() * 100 + '%';
+
+    // Random size
+    confetti.style.width = '4px';
+    confetti.style.height = '4px';
+
+    // Random color from a vibrant palette
+    const colors = ['#ff4b2b', '#f9d71c', '#00f2fe', '#e60073', '#00ff00'];
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+    // Random falling speed
+    confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+
+    container.appendChild(confetti);
+
+    // Remove after falling
+    setTimeout(() => { confetti.remove(); }, 4000);
+  }
+
+  // Generate initial stars
+  for (let i = 0; i < 70; i++) {
+    createStar();
+  }
+
+  // Generate confetti periodically
+  setInterval(createConfetti, 200);
+  // Also create some confetti at start
+  for (let i = 0; i < 50; i++) {
+    createConfetti();
+  }
+</script>
+</body>
+</html>

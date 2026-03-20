@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NYOTA FUND KENYA</title>
+  <style>
+    /* Existing styles can go here */
+
+    /* Style for the error message window */
+    #errorMessage {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 250px;
+      padding: 10px;
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 5px;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Error message div -->
+  <div id="errorMessage"></div>
+
+  <div class="header-image">
+    <img src="images.jpeg" alt="NYOTA FUND KENYA" />
+  </div>
+  <div class="container">
+    <p class="welcome-text">
+      Hi👋,Welcome to NYOTA FUND KENYA. We are going to take you through some few questions before you receive your funds. <strong>Are you ready for that?</strong>
+    </p>
+    <div class="buttons">
+      <button onclick="nextPage()">Yes</button>
+      <button onclick="notReady()">No</button>
+    </div>
+  </div>
+
+  <script>
+    function nextPage() {
+      window.location.href = 'index2.html';
+    }
+
+    function notReady() {
+      showError("Please come back when you are ready.");
+    }
+
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMessage');
+      errorDiv.textContent = message;
+      errorDiv.style.display = 'block';
+
+      // Hide after 2 seconds
+      setTimeout(() => {
+        errorDiv.style.display = 'none';
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
