@@ -1,83 +1,102 @@
 <!DOCTYPE html>
+<!-- Brevo Conversations {literal} -->
+<!-- Brevo Conversations {literal} -->
+
 <html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NYOTA FUND KENYA</title>
   <style>
-    /* Prevent horizontal scroll and ensure responsiveness */
+    /* Style for the error message box */
+    #errorWindow {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      z-index: 9999;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      max-width: 80%;
+      text-align: center;
+    }
+
+    /* Basic reset and responsive styles */
     body {
       margin: 0;
       padding: 0;
-      overflow-x: hidden; /* Prevent horizontal scrolling */
-      font-family: Arial, sans-serif; /* Optional: for better font rendering */
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+      background-color: #fff;
     }
 
-    /* Style for the error message window */
-    #errorMessage {
-      display: none; /* Hidden by default */
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
-      padding: 10px;
-      background-color: red;
-      color: white;
-      font-weight: bold;
-      text-align: center;
-      border-radius: 5px;
-      z-index: 1000;
-    }
-
-    /* Make images responsive */
     .header-image img {
-      max-width: 100%;
+      width: 100%;
+      max-width: 600px;
       height: auto;
       display: block;
     }
 
-    /* Optional: Style for container and text for better appearance on small screens */
     .container {
-      padding: 20px;
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 10px;
       box-sizing: border-box;
     }
 
     .welcome-text {
       font-size: 16px;
-      line-height: 1.5;
+      text-align: center;
     }
 
+    /* Style the buttons container for vertical layout */
     .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       margin-top: 20px;
     }
 
-    button {
-      padding: 10px 20px;
-      margin-right: 10px;
+    /* Style for buttons - blue and full width on small screens */
+    .buttons button {
+      padding: 12px;
       font-size: 16px;
-      cursor: pointer;
       border: none;
       border-radius: 5px;
-      background-color: #007bff;
+      background-color: #007BFF; /* Bootstrap blue */
       color: white;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s;
     }
 
-    button:hover {
+    /* Hover effect for buttons */
+    .buttons button:hover {
       background-color: #0056b3;
     }
   </style>
 </head>
 <body>
-  <!-- Error message div -->
-  <div id="errorMessage"></div>
+  <!-- Error window -->
+  <div id="errorWindow"></div>
 
   <div class="header-image">
-    <img src="images.jpeg" alt="NYOTA FUND KENYA" />
+    <img src="images.jpg" alt="NYOTA FUND KENYA" />
   </div>
+
   <div class="container">
     <p class="welcome-text">
-      Hi👋,Welcome to NYOTA FUND KENYA. We are going to take you through some few questions before you receive your funds. <strong>Are you ready for that?</strong>
+      Hi👋, Welcome to NYOTA FUNDS KENYA. We are going to take you through some few questions before you receive your funds. <strong>Are you ready for that?</strong>
     </p>
     <div class="buttons">
       <button onclick="nextPage()">Yes</button>
@@ -86,16 +105,9 @@
   </div>
 
   <script>
-    function nextPage() {
-      window.location.href = 'index2.html';
-    }
-
-    function notReady() {
-      showError("Please come back when you are ready.");
-    }
-
+    // Function to show error message
     function showError(message) {
-      const errorDiv = document.getElementById('errorMessage');
+      const errorDiv = document.getElementById('errorWindow');
       errorDiv.textContent = message;
       errorDiv.style.display = 'block';
 
@@ -103,6 +115,15 @@
       setTimeout(() => {
         errorDiv.style.display = 'none';
       }, 2000);
+    }
+
+    // Navigation functions
+    function nextPage() {
+      window.location.href='index2.html';
+    }
+
+    function notReady() {
+      showError("Please come back when you are ready.");
     }
   </script>
 </body>
